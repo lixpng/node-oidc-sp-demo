@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>添加 OIDC 配置</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      form > * {
+        margin-bottom: 24px;
+      }
+      input {
+        line-height: 28px;
+      }
+      button {
+        float: right;
+      }
+      label {
+        width: 128px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form method="post" action="/api/oidc-provider">
+        <label>名称：</label><input required name="name" placeholder="名称" />
+        <br />
+        <label>Client ID：</label
+        ><input required name="clientId" placeholder="Client ID" />
+        <br />
+        <label>Client Secret：</label
+        ><input
+          required
+          type="password"
+          name="clientSecret"
+          placeholder="Client Secret"
+        />
+        <br />
+        <label>Issuer：</label
+        ><input required name="issuer" placeholder="Issuer" />
+        <br />
+        <button type="submit">提交</button>
+      </form>
+    </div>
+  </body>
+</html>

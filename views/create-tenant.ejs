@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>创建企业</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      form > * {
+        margin-bottom: 24px;
+      }
+      input {
+        line-height: 28px;
+      }
+      button {
+        float: right;
+        cursor: pointer;
+      }
+      .form-item-label {
+        display: inline-block;
+        width: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>注册企业</h3>
+      <form id="tenantForm" method="post" action="/api/tenant">
+        <h4>企业信息</h4>
+        <label class="form-item-label">企业名：</label>
+        <input required name="tenantName" placeholder="企业名" />
+        <br />
+        <label class="form-item-label">企业 logo：</label>
+        <input required name="tenantLogo" placeholder="logo，输入图片链接" />
+        <br />
+        <h4>企业管理员信息</h4>
+        <label class="form-item-label">用户名：</label>
+        <input required name="adminName" placeholder="管理员名称" />
+        <br />
+        <label class="form-item-label">密码：</label>
+        <input
+          required
+          type="password"
+          name="adminPassword"
+          placeholder="密码"
+        />
+        <br />
+        <label class="form-item-label">邮箱：</label>
+        <input required name="adminEmail" placeholder="邮箱" />
+        <br />
+        <label class="form-item-label">头像（选填）：</label>
+        <input name="adminAvatar" placeholder="输入图片链接" />
+        <br />
+        <label class="form-item-label">手机号（选填）：</label>
+        <input name="adminPhone" placeholder="手机号" />
+        <br />
+        <label class="form-item-label">性别（选填）：</label>
+        <input name="adminGender" id="man" value="M" type="radio" />
+        <label for="man">男</label>
+        <input name="adminGender" id="female" value="F" type="radio" />
+        <label for="female">女</label>
+        <br />
+        <button type="submit">提交</button>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    document.getElementById('tenantForm').addEventListener('submit', (evt) => {
+      evt.preventDefault()
+      const {
+        tenantName,
+        tenantLogo,
+        adminName,
+        adminPassword,
+        adminEmail,
+        adminAvatar,
+        adminPhone,
+        adminGender,
+      } = evt.target.elements
+      fetch('/api/tenant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tenantName: tenantName.value,
+          tenantLogo: tenantLogo.value,
+          adminName: adminName.value,
+          adminPassword: adminPassword.value,
+          adminEmail: adminEmail.value,
+          adminAvatar: adminAvatar.value,
+          adminPhone: adminPhone.value,
+          adminGender: adminGender.value,
+        }),
+      })
+        .then((e) => e.json())
+        .then((data) => {
+          if (data.code === 200) {
+            window.location.href = '/login/' + data.data.tenant.id
+          } else {
+            alert(data.message)
+          }
+        })
+        .catch(() => {
+          alert('网络错误')
+        })
+    })
+  </script>
+</html>

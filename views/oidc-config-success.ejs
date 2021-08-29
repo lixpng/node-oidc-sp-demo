@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>添加成功</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      hr {
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        OIDC 配置成功，你应该将以下信息提供身份提供商：
+        <p>登录回调 URL：<%=callbackUrl%></p>
+      </div>
+      <hr />
+      <a href="/api/logout">退出登录并体验使用 OIDC 登录</a>
+    </div>
+  </body>
+</html>
