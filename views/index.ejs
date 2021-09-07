@@ -22,6 +22,7 @@
       <div>
         当前状态：<%= isLogin ? '已登录' : '未登录' %> <% if (!isLogin) { %>
         <a href="/login">登录</a>
+        <a href="/tenant">注册企业</a>
         <% } else { %>
         <a href="/api/logout">登出</a>
         <div>
