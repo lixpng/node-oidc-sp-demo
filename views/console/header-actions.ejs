@@ -1,0 +1,85 @@
+<style>
+  .console-avatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 16px;
+    cursor: pointer;
+  }
+
+  .console-header-actions {
+    background-color: #fff;
+    height: 70px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .console-username {
+    font-size: 16px;
+    line-height: 175%;
+    color: #232d42;
+    display: block;
+  }
+
+  .console-email {
+    font-size: 13px;
+    line-height: 130%;
+    color: #8a92a6;
+  }
+
+  .header-dropdown {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    transform: translateY(86%);
+    background: #fff;
+    border: 1px solid #e9ecef;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: none;
+    padding: 12px;
+  }
+
+  .header-dropdown.header-dropdown__active {
+    display: unset;
+  }
+
+  .dropdown-item {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .dropdown-item,
+  .dropdown-item:hover,
+  .dropdown-item:active,
+  .dropdown-item:visited,
+  .dropdown-item:focus {
+    color: #8a92a6;
+  }
+</style>
+
+<div class="console-header-actions">
+  <img
+    id="dropdownTrigger"
+    class="console-avatar"
+    src="<%=user.avatar%>"
+    alt="Avatar"
+  />
+  <div id="dropdown" class="header-dropdown">
+    <a href="/api/logout" class="dropdown-item"> 退出登录 </a>
+  </div>
+  <div>
+    <span class="console-username"><%=user.name || '--'%></span>
+    <span class="console-email"><%=user.email%></span>
+  </div>
+</div>
+
+<script>
+  document.querySelector('#dropdownTrigger').addEventListener('click', () => {
+    document
+      .querySelector('#dropdown')
+      .classList.toggle('header-dropdown__active')
+  })
+</script>

@@ -2,38 +2,61 @@
 <html>
   <head>
     <title>Authing Demo</title>
-    <!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+    <link rel="stylesheet" href="/stylesheets/common.css" />
     <style>
-      html,
-      body {
-        height: 100%;
+      .home-page-demo {
+        max-width: 100%;
       }
-      .container {
-        height: 100%;
+      .home-logo {
+        height: 40px;
+      }
+      nav {
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 120px;
+        height: 70px;
+      }
+      .home-page-login {
+        color: #fff;
+        background-color: #3d5ce6;
+        height: 40px;
+        width: 100px;
+        border-radius: 8px;
+      }
+      .nav-item {
+        font-size: 18px;
+      }
+      .nav-item:not(:first-child) {
+        margin-left: 48px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div>
-        当前状态：<%= isLogin ? '已登录' : '未登录' %> <% if (!isLogin) { %>
-        <a href="/login">登录</a>
-        <a href="/tenant">注册企业</a>
-        <% } else { %>
-        <a href="/api/logout">登出</a>
-        <div>
-          用户信息：
-          <pre><%=user%></pre>
+      <nav>
+        <img class="home-logo" src="/images/logo.png" alt="Logo" />
+        <div class="nav-container">
+          <span class="nav-item">产品</span>
+          <span class="nav-item">解决方案</span>
+          <span class="nav-item">客户案例</span>
+          <span class="nav-item">价格</span>
+          <span class="nav-item">支持</span>
         </div>
-        <div>所属公司：<%=tenant.name%></div>
-        <% } %> <% if (isAdmin) { %>
-        <div>公司管理：<a href="/oidc-provider">添加 OIDC 配置</a></div>
+
+        <% if (!user) { %>
+        <a href="/login">
+          <button class="home-page-login">登录</button>
+        </a>
+        <% } else { %> <%- include('console/header-actions', {user:user}); -%>
         <% } %>
-      </div>
+      </nav>
+      <img
+        class="home-page-demo"
+        src="/images/home-demo.png"
+        alt=""
+        srcset=""
+      />
     </div>
   </body>
 </html>

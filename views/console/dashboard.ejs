@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>控制台</title>
+    <link rel="stylesheet" href="/stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/dashboard-page.css" />
+  </head>
+  <body>
+    <%- include('header', {user: user}); -%>
+    <div class="console-layout">
+      <%- include('sidebar', {user:user}); -%>
+      <div class="console-main-content">
+        <img
+          class="dashboard-sample-img"
+          src="/images/dashboard-sample.png"
+          alt=""
+        />
+      </div>
+    </div>
+  </body>
+</html>

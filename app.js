@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index')
 var oidcConfigRouter = require('./routes/oidcProvider')
 var loginRouter = require('./routes/login')
 var tenantRouter = require('./routes/tenant')
+var consoleRouter = require('./routes/console')
 const passport = require('passport')
 const { sequelize } = require('./models/getConnection')
 const { initExampleData } = require('./utils/initExampleData')
@@ -51,6 +52,7 @@ app.use('/', indexRouter)
 app.use('/', oidcConfigRouter)
 app.use('/', loginRouter)
 app.use('/', tenantRouter)
+app.use('/', consoleRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

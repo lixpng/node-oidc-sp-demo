@@ -5,7 +5,7 @@ var router = express.Router()
 router.get('/', function (req, res, next) {
   res.render('index', {
     isLogin: !!req.session.user,
-    user: JSON.stringify(req.session.user, null, 2),
+    user: req.session.user,
     isAdmin: req.session.user && req.session.user.isAdmin,
     tenant: req.session.tenant,
   })

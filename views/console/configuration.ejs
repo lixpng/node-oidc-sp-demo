@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>企业配置</title>
+    <link rel="stylesheet" href="/stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/form.css" />
+    <style>
+      .tabs {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        background-color: #fff;
+        border-radius: 8px;
+      }
+      .tab-item {
+        font-size: 19px;
+        line-height: 27px;
+        color: #04040b;
+        margin-left: 64px;
+        padding: 27px 0;
+        cursor: pointer;
+      }
+
+      .tab-item:hover {
+        color: #3d5ce6;
+      }
+
+      .tab-item.tab-item__active {
+        color: #3d5ce6;
+        position: relative;
+      }
+      .tab-item.tab-item__active:after {
+        content: '';
+        display: block;
+        height: 2px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #3d5ce6;
+      }
+      .tab-content {
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 56px 47px;
+        flex: 1;
+      }
+      .tab-content-item {
+        display: none;
+      }
+      .tab-content-item.tab-content-item__active {
+        display: block;
+      }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/dashboard-page.css" />
+  </head>
+
+  <body>
+    <%- include('header', {user: user}); -%>
+    <div class="console-layout">
+      <%- include('sidebar', {user:user}); -%>
+      <div class="console-main-content">
+        <div id="tabs" class="tabs">
+          <div data-tab-name="oidc" class="tab-item tab-item__active">
+            OIDC 配置
+          </div>
+          <div data-tab-name="project" class="tab-item">项目配置</div>
+          <div data-tab-name="member" class="tab-item">成员配置</div>
+          <div data-tab-name="advance" class="tab-item">高级配置</div>
+        </div>
+
+        <div class="tab-content">
+          <div
+            class="tab-content-item tab-content-item__active"
+            data-tab-content="oidc"
+          >
+            <%- include('oidc-form', {user: user}); -%>
+          </div>
+          <div class="tab-content-item" data-tab-content="project">Demo</div>
+          <div class="tab-content-item" data-tab-content="member">Demo</div>
+          <div class="tab-content-item" data-tab-content="advance">Demo</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector('#tabs').addEventListener('click', (evt) => {
+        const { target } = evt
+
+        if (target.classList.contains('tab-item')) {
+          document.querySelectorAll('.tab-item').forEach((item) => {
+            item.classList.remove('tab-item__active')
+          })
+          document.querySelectorAll('.tab-content-item').forEach((item) => {
+            item.classList.remove('tab-content-item__active')
+            if (item.dataset.tabContent === target.dataset.tabName) {
+              item.classList.add('tab-content-item__active')
+            }
+          })
+          target.classList.add('tab-item__active')
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -5,49 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>登录</title>
+    <link rel="stylesheet" href="/stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/form.css" />
+
     <style>
-      html,
-      body {
-        height: 100%;
-      }
       .container {
-        height: 100%;
         display: flex;
+        width: 100%;
+        height: 100vh;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
       }
-      form > * {
-        margin-bottom: 24px;
+
+      .left-bg {
+        background-image: url(/images/uthing-bg.png);
+        height: 476px;
+        width: 519px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-right: 140px;
       }
-      input {
-        line-height: 28px;
+
+      .logo {
+        width: 131px;
+        height: 49px;
+        margin-bottom: 67px;
       }
-      button {
-        float: right;
-        cursor: pointer;
+      .sign-in-with {
+        font-size: 16px;
+        line-height: 175%;
+
+        color: #8a92a6;
+      }
+      .oidc-item {
+        padding: 8px 16px;
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+        box-sizing: border-box;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+      .oidc-item,
+      .oidc-item:hover,
+      .oidc-item:active,
+      .oidc-item:visited,
+      .oidc-item:focus {
+        color: #3d5ce6;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h3><%=tenant ? tenant.name + '企业登录界面' : '通用登录界面'%></h3>
-      <form id="loginForm">
-        邮箱：
-        <input required name="email" placeholder="邮箱" />
-        <br />
-        密码：
-        <input required type="password" name="password" placeholder="密码" />
-        <br />
-        <button type="submit">登录</button>
-      </form>
-
+      <div class="left-bg"></div>
       <div>
-        <% oidcList.forEach(function(oidcItem){%>
-        <a href="/api/oidc-login/<%=oidcItem.id%>"
-          >使用<%=oidcItem.name %>登录</a
-        >
-        <% }) %>
+        <img src="/images/logo.png" class="logo" alt="Logo" />
+        <h3 class="form-title">
+          <%=tenant ? tenant.name + '企业登录界面' : '通用登录界面'%>
+        </h3>
+        <form class="form" id="loginForm">
+          <div>
+            <label class="form-label">邮箱：</label>
+            <input
+              class="form-input"
+              required
+              name="email"
+              placeholder="邮箱"
+            />
+          </div>
+
+          <div>
+            <label class="form-label">密码：</label>
+            <input
+              class="form-input"
+              required
+              type="password"
+              name="password"
+              placeholder="密码"
+            />
+          </div>
+          <button class="form-button" type="submit">登录</button>
+        </form>
+        <% if (oidcList.length) { %>
+        <div>
+          <p class="sign-in-with">sign in with</p>
+          <% oidcList.forEach(function(oidcItem){%>
+          <a class="oidc-item" href="/api/oidc-login/<%=oidcItem.id%>"
+            ><%=oidcItem.name %></a
+          >
+          <% }) %>
+        </div>
+        <% } %>
       </div>
     </div>
   </body>
@@ -69,7 +116,7 @@
         .then((e) => e.json())
         .then((data) => {
           if (data.code === 200) {
-            window.location.href = '/'
+            window.location.href = '/console/dashboard'
           } else {
             alert(data.message)
           }

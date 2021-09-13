@@ -1,0 +1,59 @@
+<style>
+  .sidebar {
+    box-sizing: border-box;
+    width: 258px;
+    height: calc(100vh - 80px);
+    border-top: 1px solid #e9ecef;
+    padding: 24px 0;
+    background-color: #fff;
+  }
+
+  .sidebar-item {
+    padding: 12px 29px;
+    box-sizing: border-box;
+    color: #8a92a6;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+  }
+
+  .sidebar-item-icon {
+    margin-right: 18px;
+  }
+
+  .sidebar-item:hover,
+  .sidebar-item.sidebar-item__active {
+    background-color: #3d5ce6;
+    color: #fff;
+  }
+</style>
+
+<div id="sidebar" class="sidebar">
+  <a href="/console/dashboard" class="sidebar-item">
+    <img class="sidebar-item-icon" src="/images/icons/dashboard.svg" alt="" />
+    控制台
+  </a>
+  <a href="/console/configuration" class="sidebar-item">
+    <img class="sidebar-item-icon" src="/images/icons/config.svg" alt="" />
+    配置
+  </a>
+</div>
+
+<script>
+  function setActiveSidebar() {
+    const href = window.location.href
+    Array.from(document.querySelectorAll('.sidebar-item')).forEach((item) => {
+      if (item.href === href) {
+        item.classList.add('sidebar-item__active')
+      }
+    })
+  }
+
+  document.querySelector('#sidebar').addEventListener('click', (evt) => {
+    setActiveSidebar()
+  })
+  setActiveSidebar()
+</script>

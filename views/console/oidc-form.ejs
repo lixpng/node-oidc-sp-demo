@@ -1,0 +1,116 @@
+<style>
+  .oidc-form .form-button {
+    margin: 24px 0 0 0;
+  }
+  .submit-success-modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+  .submit-success-modal__hidden {
+    display: none;
+  }
+  .modal-cover {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.31);
+    position: absolute;
+  }
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 656px;
+    box-sizing: border-box;
+    margin: 100px auto;
+    padding: 0 0 48px 0;
+  }
+  .success-demo-img {
+    width: 100%;
+  }
+  .try-oidc-login {
+    width: 188px;
+    height: 44px;
+    background: #3d5ce6;
+    box-shadow: 0px 8px 16px rgba(59, 138, 255, 0.25);
+    border-radius: 4px;
+    color: #fff;
+  }
+</style>
+
+<form class="oidc-form" id="oidcForm">
+  <div>
+    <label class="form-label">名称：</label>
+    <input class="form-input" required name="name" placeholder="名称" />
+  </div>
+
+  <div>
+    <label class="form-label">Client ID：</label>
+  </div>
+  <input class="form-input" required name="clientId" placeholder="Client ID" />
+
+  <div>
+    <label class="form-label">Client Secret：</label>
+  </div>
+  <input
+    class="form-input"
+    required
+    type="password"
+    name="clientSecret"
+    placeholder="Client Secret"
+  />
+
+  <div>
+    <label class="form-label">Issuer：</label>
+  </div>
+
+  <input class="form-input" required name="issuer" placeholder="Issuer" />
+
+  <button class="form-button" type="submit">提交</button>
+</form>
+
+<div class="submit-success-modal submit-success-modal__hidden">
+  <div class="modal-cover"></div>
+  <div class="modal-content">
+    <img class="success-demo-img" src="/images/success-demo.png" alt="Demo" />
+    <a href="/api/logout">
+      <button class="try-oidc-login">体验登录</button>
+    </a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('oidcForm').addEventListener('submit', (evt) => {
+    evt.preventDefault()
+    const { clientId, clientSecret, issuer, name } = evt.target.elements
+    fetch('/api/oidc-provider', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name.value,
+        clientId: clientId.value,
+        clientSecret: clientSecret.value,
+        issuer: issuer.value,
+      }),
+    })
+      .then((e) => e.json())
+      .then((data) => {
+        if (data.code === 200) {
+          document
+            .querySelector('.submit-success-modal__hidden')
+            .classList.remove('submit-success-modal__hidden')
+        } else {
+          alert(data.message)
+        }
+      })
+      .catch(() => {
+        alert('网络错误')
+      })
+  })
+</script>

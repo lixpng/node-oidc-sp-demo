@@ -1,0 +1,29 @@
+<style>
+  .console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    height: 70px;
+    box-sizing: border-box;
+    padding: 0 32px;
+  }
+
+  .console-logo-wrapper {
+    width: 257px;
+    /* box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05); */
+  }
+
+  .console-logo {
+    height: 40px;
+    vertical-align: middle;
+  }
+</style>
+
+<header class="console-header">
+  <div class="console-logo-wrapper">
+    <img class="console-logo" src="/images/logo.png" alt="Logo" />
+  </div>
+
+  <%- include('header-actions', {user:user}); -%>
+</header>

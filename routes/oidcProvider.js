@@ -37,7 +37,7 @@ router.post('/api/oidc-provider', async (req, res) => {
   const trimedIssuer = issuer.trim()
   const callbackUrl = `http://localhost:5000/api/oidc/${tenant.id}/callback`
 
-  oidcProviderService.insert({
+  const config = await oidcProviderService.insert({
     name,
     clientId: clientId.trim(),
     clientSecret: clientSecret.trim(),
@@ -50,8 +50,10 @@ router.post('/api/oidc-provider', async (req, res) => {
     callbackUrl,
   })
 
-  res.render('oidc-config-success', {
-    callbackUrl,
+  res.json({
+    code: 200,
+    message: '配置成功',
+    data: config,
   })
 })
 

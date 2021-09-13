@@ -88,7 +88,7 @@ router.get('/api/oidc/:tenantId/callback', async (req, res, next) => {
     req.session.user = user
     req.session.tenant = await tenantService.findById(Number(user.tenant))
 
-    res.redirect('/')
+    res.redirect('/console/dashboard')
   })(req, res, next)
 })
 
