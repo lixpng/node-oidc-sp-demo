@@ -1,6 +1,7 @@
 const { OIDCProvider } = require('../models/oidcProvider.repository')
 const { Tenant } = require('../models/tenant.repository')
 const { User } = require('../models/user.repository')
+const { baseUrl } = require('../utils/config')
 
 async function initExampleData() {
   console.log('>>>>>>>>>>开始初始化示例数据<<<<<<<<<<<<')
@@ -40,13 +41,13 @@ async function initExampleData() {
     },
     defaults: {
       name: 'Demo',
-      clientId: '60d985bb7162615ea9cb71d7',
-      clientSecret: '376e73ca3b19cccfd4cadfc993fe96a2',
-      issuer: 'https://xnpnjb-demo.authing.cn/oidc',
+      clientId: '613f1a51ce39b66d313f6871',
+      clientSecret: 'b611cfaf27ff005b075c185831be56d9',
+      issuer: 'https://ldmmbebkojmi-demo.authing.cn/oidc',
       configurationEndpoint:
-        'https://xnpnjb-demo.authing.cn/oidc/.well-known/openid-configuration',
+        'https://ldmmbebkojmi-demo.authing.cn/oidc/.well-known/openid-configuration',
       tenant: exampleTenant.id,
-      callbackUrl: `http://localhost:5000/api/oidc/${exampleTenant.id}/callback`,
+      callbackUrl: `${baseUrl}/api/oidc/${exampleTenant.id}/callback`,
     },
   })
 

@@ -1,5 +1,6 @@
 var express = require('express')
 const { oidcProviderService } = require('../models/oidcProvider.repository')
+const { baseUrl } = require('../utils/config')
 var router = express.Router()
 
 // 添加 OIDC 配置界面
@@ -35,7 +36,7 @@ router.post('/api/oidc-provider', async (req, res) => {
 
   const { name, clientId, clientSecret, issuer } = req.body
   const trimedIssuer = issuer.trim()
-  const callbackUrl = `http://localhost:5000/api/oidc/${tenant.id}/callback`
+  const callbackUrl = `${baseUrl}/api/oidc/${tenant.id}/callback`
 
   const config = await oidcProviderService.insert({
     name,
